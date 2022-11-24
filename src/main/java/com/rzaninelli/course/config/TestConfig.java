@@ -1,14 +1,8 @@
 package com.rzaninelli.course.config;
 
-import com.rzaninelli.course.entities.Category;
-import com.rzaninelli.course.entities.Order;
-import com.rzaninelli.course.entities.Product;
-import com.rzaninelli.course.entities.User;
+import com.rzaninelli.course.entities.*;
 import com.rzaninelli.course.entities.enums.OrderStatus;
-import com.rzaninelli.course.repositories.CategoryRepository;
-import com.rzaninelli.course.repositories.OrderRepository;
-import com.rzaninelli.course.repositories.ProductRepository;
-import com.rzaninelli.course.repositories.UserRepository;
+import com.rzaninelli.course.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
 
     @Override
@@ -68,6 +65,13 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p1.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p1.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p1.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
     }
 }
